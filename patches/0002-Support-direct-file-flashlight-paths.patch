@@ -1,0 +1,25 @@
+--- a/bootable/recovery/gui/action.cpp
++++ b/bootable/recovery/gui/action.cpp
+@@ -2599,7 +2599,10 @@ int GUIAction::flashlightImpl(std::string arg __unused)
+ 		if (!path_one.empty()) {
+ 			bright_one = path_one + "/brightness";
+ 			max_one = path_one + "/max_brightness";
+-			if (TWFunc::Path_Exists(max_one)) {
++			if (!TWFunc::Path_Exists(bright_one) && TWFunc::Path_Exists(path_one)) {
++				bright_one = path_one;
++				max_brt_one = "1";
++			} else if (TWFunc::Path_Exists(max_one)) {
+ 				TWFunc::read_file(max_one, max_brt_one);
+ 			} else {
+ 				max_brt_one = "1";
+@@ -2623,6 +2626,10 @@ int GUIAction::flashlightImpl(std::string arg __unused)
+ 		if (!path_two.empty()) {
+ 			bright_two = path_two + "/brightness";
+ 			max_two = path_two + "/max_brightness";
++			if (!TWFunc::Path_Exists(bright_two) && TWFunc::Path_Exists(path_two)) {
++				bright_two = path_two;
++				max_brt_two = "1";
++			}
+ 			if (TWFunc::Path_Exists(bright_two)) {
+ 				if (!TWFunc::Path_Exists(max_two)) {
+ 					max_brt_two = "1";
