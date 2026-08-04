@@ -2,15 +2,3 @@
  #Added Manual For Trustonic
     mkdir /mnt/vendor/persist
     mount ext4 /dev/block/by-name/persist /mnt/vendor/persist rw
-
- # Fuel gauge daemon: run the stock GM30 FG userspace so recovery meters SOC
- # like system and does not corrupt the persisted state. nvcfg holds the FG
- # record/aging data the daemon reads and writes; it must be mounted first.
-    mkdir /mnt/vendor/nvcfg
-    mount ext4 /dev/block/by-name/nvcfg /mnt/vendor/nvcfg rw
-    start fuelgauged
-
-service fuelgauged /vendor/bin/fuelgauged
-    class core
-    user root
-    group root
